@@ -18,19 +18,18 @@ or check out examples below.
 ```elixir
 # In your config/config.exs file
 config :my_app, Repo,
-  adapter: Mongo.Ecto,
   database: "ecto_simple",
   username: "mongodb",
-  password: "mongosb",
+  password: "mongodb",
   hostname: "localhost"
 
 # In your application code
 defmodule Repo do
-  use Ecto.Repo, otp_app: :my_app
+  use Ecto.Repo, otp_app: :my_app, adapter: Mongo.Ecto
 end
 
 defmodule Weather do
-  use Ecto.Model
+  use Ecto.Schema
 
   @primary_key {:id, :binary_id, autogenerate: true}
   schema "weather" do
@@ -70,16 +69,6 @@ You should also update your applications to include both projects:
 ```elixir
 def application do
   [applications: [:logger, :mongodb_ecto, :ecto]]
-end
-```
-
-To use the adapter in your repo:
-
-```elixir
-defmodule MyApp.Repo do
-  use Ecto.Repo,
-    otp_app: :my_app,
-    adapter: Mongo.Ecto
 end
 ```
 
